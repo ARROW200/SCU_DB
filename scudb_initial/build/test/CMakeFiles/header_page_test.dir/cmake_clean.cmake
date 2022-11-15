@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/header_page_test.dir/table/header_page_test.cpp.o"
+  "CMakeFiles/header_page_test.dir/table/header_page_test.cpp.o.d"
   "header_page_test"
   "header_page_test.pdb"
 )

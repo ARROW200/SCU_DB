@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/virtual_table_test.dir/vtable/virtual_table_test.cpp.o"
+  "CMakeFiles/virtual_table_test.dir/vtable/virtual_table_test.cpp.o.d"
   "virtual_table_test"
   "virtual_table_test.pdb"
 )

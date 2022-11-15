@@ -1,4 +1,4 @@
-# Install script for directory: /home/yneversky/ynwork/SCUDB/scudb_initial/test
+# Install script for directory: /home/arrow/Desktop/SCU_DB/scudb_initial/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,10 @@ endif()
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 

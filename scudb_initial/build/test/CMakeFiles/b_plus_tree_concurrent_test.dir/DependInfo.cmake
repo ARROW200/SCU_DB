@@ -1,27 +1,21 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
   )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/yneversky/ynwork/SCUDB/scudb_initial/test/index/b_plus_tree_concurrent_test.cpp" "/home/yneversky/ynwork/SCUDB/scudb_initial/build/test/CMakeFiles/b_plus_tree_concurrent_test.dir/index/b_plus_tree_concurrent_test.cpp.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../src"
-  "../src/include"
-  "../test/include"
-  "../third_party"
-  "../third_party/gmock"
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/arrow/Desktop/SCU_DB/scudb_initial/test/index/b_plus_tree_concurrent_test.cpp" "test/CMakeFiles/b_plus_tree_concurrent_test.dir/index/b_plus_tree_concurrent_test.cpp.o" "gcc" "test/CMakeFiles/b_plus_tree_concurrent_test.dir/index/b_plus_tree_concurrent_test.cpp.o.d"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/yneversky/ynwork/SCUDB/scudb_initial/build/src/CMakeFiles/vtable.dir/DependInfo.cmake"
-  "/home/yneversky/ynwork/SCUDB/scudb_initial/build/src/CMakeFiles/sqlite3.dir/DependInfo.cmake"
-  "/home/yneversky/ynwork/SCUDB/scudb_initial/build/test/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "/home/arrow/Desktop/SCU_DB/scudb_initial/build/src/CMakeFiles/vtable.dir/DependInfo.cmake"
+  "/home/arrow/Desktop/SCU_DB/scudb_initial/build/src/CMakeFiles/sqlite3.dir/DependInfo.cmake"
+  "/home/arrow/Desktop/SCU_DB/scudb_initial/build/test/CMakeFiles/gtest.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/yneversky/ynwork/SCUDB/scudb_initial
-BuildDirectory: /home/yneversky/ynwork/SCUDB/scudb_initial/build
+SourceDirectory: /home/arrow/Desktop/SCU_DB/scudb_initial
+BuildDirectory: /home/arrow/Desktop/SCU_DB/scudb_initial/build
 
 # Where to place the cost data store
 CostDataFile: 
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/yneversky/ynwork/SCUDB/scudb_initial"
+ConfigureCommand: "/usr/bin/cmake" "/home/arrow/Desktop/SCU_DB/scudb_initial"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
@@ -57,18 +57,22 @@ P4UpdateOptions:
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: /usr/bin/git
+UpdateCommand: 
 UpdateOptions: 
-UpdateType: git
+UpdateType: 
 
 # Compiler info
 Compiler: /usr/bin/c++
-CompilerVersion: 9.4.0
+CompilerVersion: 11.3.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 
 ValgrindCommand: 
 ValgrindCommandOptions: 
+DrMemoryCommand: 
+DrMemoryCommandOptions: 
+CudaSanitizerCommand: 
+CudaSanitizerCommandOptions: 
 MemoryCheckType: 
 MemoryCheckSanitizerOptions: 
 MemoryCheckCommand: /usr/bin/valgrind
@@ -78,10 +82,6 @@ MemoryCheckSuppressionFile:
 # Coverage
 CoverageCommand: /usr/bin/gcov
 CoverageExtraFlags: -l
-
-# Cluster commands
-SlurmBatchCommand: SLURM_SBATCH_COMMAND-NOTFOUND
-SlurmRunCommand: SLURM_SRUN_COMMAND-NOTFOUND
 
 # Testing options
 # TimeOut is the amount of time in seconds to wait for processes
