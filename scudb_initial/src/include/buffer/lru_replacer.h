@@ -9,28 +9,43 @@
 
 #pragma once
 
-#include "buffer/replacer.h"
-#include "hash/extendible_hash.h"
 
+#include <memory>
+#include <unordered_map>
+#include <mutex>
+#include "buffer/replacer.h"
+
+using namespace std;
 namespace scudb {
 
-template <typename T> class LRUReplacer : public Replacer<T> {
-public:
-  // do not change public interface
-  LRUReplacer();
+    template <typename T> class LRUReplacer : public Replacer<T> {
+        struct Node {
+            Node() {};
+            Node(T val) : val(val) {};
+            T val;
+            shared_ptr<Node> prev;
+            shared_ptr<Node> next;
+        };
+    public:
+        // do not change public interface
+        LRUReplacer();
 
-  ~LRUReplacer();
+        ~LRUReplacer();
 
-  void Insert(const T &value);
+        void Insert(const T &value);
 
-  bool Victim(T &value);
+        bool Victim(T &value);
 
-  bool Erase(const T &value);
+        bool Erase(const T &value);
 
-  size_t Size();
+        size_t Size();
 
-private:
-  // add your member variables here
-};
+    private:
+        shared_ptr<Node> head;
+        shared_ptr<Node> tail;
+        unordered_map<T,shared_ptr<Node>> map;
+        mutable mutex latch;
+        // add your member variables here
+    };
 
-} // namespace scudb
+} // namespace cmudb
