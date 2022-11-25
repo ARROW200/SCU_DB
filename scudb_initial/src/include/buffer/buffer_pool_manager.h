@@ -35,6 +35,9 @@ namespace scudb {
         bool DeletePage(page_id_t page_id);
 
     private:
+        // select a page from free list or a victim from lru
+        Page *SelectPage();
+        // private fields
         size_t pool_size_; // number of pages in buffer pool
         Page *pages_;      // array of pages
         DiskManager *disk_manager_;
@@ -44,4 +47,4 @@ namespace scudb {
         std::list<Page *> *free_list_; // to find a free page for replacement
         std::mutex latch_;             // to protect shared data structure
     };
-} // namespace scudb
+}// namespace scudb
