@@ -43,6 +43,5 @@ namespace scudb {
         Replacer<Page *> *replacer_;   // to find an unpinned page for replacement
         std::list<Page *> *free_list_; // to find a free page for replacement
         std::mutex latch_;             // to protect shared data structure
-        Page *GetVictimPage();
     };
 } // namespace scudb

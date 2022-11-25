@@ -45,36 +45,8 @@ namespace scudb {
  * entry for the new page.
  * 4. Update page metadata, read page content from disk file and return page
  * pointer
- *
- * This function must mark the Page as pinned and remove its entry from LRUReplacer before it is returned to the caller.
  */
-    Page *BufferPoolManager::FetchPage(page_id_t page_id) {
-        lock_guard<mutex> lck(latch_);
-        Page *tmp = nullptr;
-        if (page_table_->Find(page_id,tmp)) { //1.1
-            tmp->pin_count_++;
-            replacer_->Erase(tmp);
-            return tmp;
-        }
-        //1.2
-        tmp = GetVictimPage();
-        if (tmp == nullptr) return tmp;
-        //2
-        if (tmp->is_dirty_) {
-            disk_manager_->WritePage(tmp->GetPageId(),tmp->data_);
-        }
-        //3
-        page_table_->Remove(tmp->GetPageId());
-        page_table_->Insert(page_id,tmp);
-        //4
-        disk_manager_->ReadPage(page_id,tmp->data_);
-        tmp->pin_count_ = 1;
-        tmp->is_dirty_ = false;
-        tmp->page_id_= page_id;
-
-        return tmp;
-    }
-//Page *BufferPoolManager::find
+    Page *BufferPoolManager::FetchPage(page_id_t page_id) { return nullptr; }
 
 /*
  * Implementation of unpin page
@@ -83,21 +55,7 @@ namespace scudb {
  * dirty flag of this page
  */
     bool BufferPoolManager::UnpinPage(page_id_t page_id, bool is_dirty) {
-        lock_guard<mutex> lck(latch_);
-        Page *tmp = nullptr;
-        page_table_->Find(page_id, tmp);
-        if (tmp == nullptr) {
-            return false;
-        }
-        tmp->is_dirty_ = is_dirty;
-        if (tmp->GetPinCount() <= 0) {
-            return false;
-        }
-        ;
-        if (--tmp->pin_count_ == 0) {
-            replacer_->Insert(tmp);
-        }
-        return true;
+        return false;
     }
 
 /*
@@ -106,20 +64,7 @@ namespace scudb {
  * if page is not found in page table, return false
  * NOTE: make sure page_id != INVALID_PAGE_ID
  */
-    bool BufferPoolManager::FlushPage(page_id_t page_id) {
-        lock_guard<mutex> lck(latch_);
-        Page *tmp = nullptr;
-        page_table_->Find(page_id,tmp);
-        if (tmp == nullptr || tmp->page_id_ == INVALID_PAGE_ID) {
-            return false;
-        }
-        if (tmp->is_dirty_) {
-            disk_manager_->WritePage(page_id,tmp->GetData());
-            tmp->is_dirty_ = false;
-        }
-
-        return true;
-    }
+    bool BufferPoolManager::FlushPage(page_id_t page_id) { return false; }
 
 /**
  * User should call this method for deleting a page. This routine will call
@@ -129,23 +74,7 @@ namespace scudb {
  * call disk manager's DeallocatePage() method to delete from disk file. If
  * the page is found within page table, but pin_count != 0, return false
  */
-    bool BufferPoolManager::DeletePage(page_id_t page_id) {
-        lock_guard<mutex> lck(latch_);
-        Page *tmp = nullptr;
-        page_table_->Find(page_id,tmp);
-        if (tmp != nullptr) {
-            if (tmp->GetPinCount() > 0) {
-                return false;
-            }
-            replacer_->Erase(tmp);
-            page_table_->Remove(page_id);
-            tmp->is_dirty_= false;
-            tmp->ResetMemory();
-            free_list_->push_back(tmp);
-        }
-        disk_manager_->DeallocatePage(page_id);
-        return true;
-    }
+    bool BufferPoolManager::DeletePage(page_id_t page_id) { return false; }
 
 /**
  * User should call this method if needs to create a new page. This routine
@@ -155,44 +84,5 @@ namespace scudb {
  * update new page's metadata, zero out memory and add corresponding entry
  * into page table. return nullptr if all the pages in pool are pinned
  */
-    Page *BufferPoolManager::NewPage(page_id_t &page_id) {
-        lock_guard<mutex> lck(latch_);
-        Page *tmp = nullptr;
-        tmp = GetVictimPage();
-        if (tmp == nullptr) return tmp;
-
-        page_id = disk_manager_->AllocatePage();
-        //2
-        if (tmp->is_dirty_) {
-            disk_manager_->WritePage(tmp->GetPageId(),tmp->data_);
-        }
-        //3
-        page_table_->Remove(tmp->GetPageId());
-        page_table_->Insert(page_id,tmp);
-
-        //4
-        tmp->page_id_ = page_id;
-        tmp->ResetMemory();
-        tmp->is_dirty_ = false;
-        tmp->pin_count_ = 1;
-
-        return tmp;
-    }
-
-    Page *BufferPoolManager::GetVictimPage() {
-        Page *tmp = nullptr;
-        if (free_list_->empty()) {
-            if (replacer_->Size() == 0) {
-                return nullptr;
-            }
-            replacer_->Victim(tmp);
-        } else {
-            tmp = free_list_->front();
-            free_list_->pop_front();
-            assert(tmp->GetPageId() == INVALID_PAGE_ID);
-        }
-        assert(tmp->GetPinCount() == 0);
-        return tmp;
-    }
-
+    Page *BufferPoolManager::NewPage(page_id_t &page_id) { return nullptr; }
 } // namespace scudb
