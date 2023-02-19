@@ -23,6 +23,12 @@ page/page.h
 ../src/include/buffer/page/page.h
 
 ../src/include/buffer/lru_replacer.h
+mutex
+-
+list
+-
+unordered_map
+-
 buffer/replacer.h
 ../src/include/buffer/buffer/replacer.h
 hash/extendible_hash.h
@@ -161,6 +167,10 @@ vector
 -
 string
 -
+mutex
+../src/include/hash/mutex
+memory
+../src/include/hash/memory
 hash/hash_table.h
 ../src/include/hash/hash/hash_table.h
 
